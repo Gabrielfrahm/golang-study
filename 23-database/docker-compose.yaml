@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  godb:
+    image: postgres:latest
+    container_name: go-db
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: godb
+    ports:
+      - '5432:5432'
+    restart: unless-stopped
+    healthcheck:
+      test: [ 'CMD-SHELL', 'pg_isready -U godb' ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
